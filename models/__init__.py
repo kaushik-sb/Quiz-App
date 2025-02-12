@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from datetime import datetime, timedelta
 
 db = SQLAlchemy()
 
@@ -23,8 +24,13 @@ class Chapter(db.Model):
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'))
-    date_of_quiz = db.Column(db.Date)
-    duration = db.Column(db.Integer)
+    date_of_quiz = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    duration = db.Column(db.Integer, nullable=False)  # Duration in minutes
+
+    def is_active(self):
+        """ Check if quiz is within the scheduled timeframe """
+        now = datetime.utcnow()
+        return self.date_of_quiz <= now <= (self.date_of_quiz + timedelta(minutes=self.duration))
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
