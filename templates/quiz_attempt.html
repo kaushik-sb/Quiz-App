@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Attempt</title>
+    <script>
+        function startTimer(duration) {
+            var timer = duration, minutes, seconds;
+            var interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                document.getElementById("timer").textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    document.getElementById("quiz_form").submit();
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            var duration = {{ quiz.duration }} * 60; // Convert minutes to seconds
+            startTimer(duration);
+        };
+    </script>
+</head>
+<body>
+    <h2>Quiz: {{ quiz.id }}</h2>
+    <p>Time Left: <span id="timer"></span></p>
+
+    <form id="quiz_form" method="POST">
+        {% for question in questions %}
+            <p>{{ question.question_statement }}</p>
+            <input type="radio" name="question_{{ question.id }}" value="1"> {{ question.option1 }}<br>
+            <input type="radio" name="question_{{ question.id }}" value="2"> {{ question.option2 }}<br>
+            <input type="radio" name="question_{{ question.id }}" value="3"> {{ question.option3 }}<br>
+            <input type="radio" name="question_{{ question.id }}" value="4"> {{ question.option4 }}<br>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
