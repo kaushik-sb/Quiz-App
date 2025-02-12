@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from models import db
@@ -17,8 +17,18 @@ db.init_app(app)
 # Initialize Flask-Migrate
 migrate = Migrate(app, db)
 
-# Import models to make them available for migrations
-import models
+# Import controllers (This is the fix for missing routes!)
+import controllers.admin
+import controllers.auth
+import controllers.user
+import controllers.score
+import controllers.search
+import controllers.charts
+
+# Define Home Route (optional)
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

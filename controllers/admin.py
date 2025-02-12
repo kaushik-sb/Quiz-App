@@ -8,6 +8,7 @@ def admin_dashboard():
     quizzes = Quiz.query.all()
     return render_template('admin_dashboard.html', quizzes=quizzes)
 
+
 @app.route('/add_quiz', methods=['GET', 'POST'])
 def add_quiz():
     if request.method == 'POST':

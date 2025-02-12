@@ -11,8 +11,8 @@ def login():
         user = User.query.filter_by(username=username, password=password).first()
         if user:
             login_user(user)
-            return redirect(url_for('dashboard'))
-        flash("Invalid credentials!")
+            return redirect(url_for('user_dashboard'))
+        flash("Invalid credentials!", "danger")
     return render_template('login.html')
 
 @app.route('/logout')
