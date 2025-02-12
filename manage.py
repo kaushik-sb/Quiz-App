@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from models import db
@@ -17,18 +17,19 @@ db.init_app(app)
 # Initialize Flask-Migrate
 migrate = Migrate(app, db)
 
-# Import controllers (This is the fix for missing routes!)
-import controllers.admin
-import controllers.auth
-import controllers.user
-import controllers.score
-import controllers.search
-import controllers.charts
+# Create the application context before importing controllers
+with app.app_context():
+    import controllers.admin
+    import controllers.auth
+    import controllers.user
+    import controllers.score
+    import controllers.search
+    import controllers.charts
 
-# Define Home Route (optional)
+# Define Home Route
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return "Welcome to Quiz Master App!"
 
 if __name__ == "__main__":
     app.run(debug=True)

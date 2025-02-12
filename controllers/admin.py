@@ -1,7 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
 from models import db, Quiz, Chapter
 from manage import app
-from flask import current_app as app
 from datetime import datetime
 
 @app.route('/admin')
