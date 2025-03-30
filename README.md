@@ -1,6 +1,6 @@
 Quiz Master App 
 
-A comprehensive web-based Quiz Master Application that allows administrators to create, manage, and analyze quizzes while providing users with an interactive platform to take quizzes and track their performance.
+A comprehensive web-based Quiz Master Application that allows administrators to create, manage, and analyze quizzes while providing users with an interactive platform to take quizzes and track their performance. The application was mainly built using Flask and Bootstrap with Jinja2 templating and flask-login authentication combined with Charts JS for quiz performance analysis.
 
 Key Objectives 
 
