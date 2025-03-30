@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Quiz: {{ quiz.name }}</h1>
+    <p>Date of Quiz: {{ quiz.date_of_quiz }}</p>
+    <p>Duration: {{ quiz.duration }} minutes</p>
+
+    <h3>Questions</h3>
+    <ul>
+      {% for question in questions %}
+        <li>
+          <p>{{ question.question_statement }}</p>
+          <ul>
+            <li>{{ question.option1 }}</li>
+            <li>{{ question.option2 }}</li>
+            <li>{{ question.option3 }}</li>
+            <li>{{ question.option4 }}</li>
+          </ul>
+          <a href="{{ url_for('admin.edit_question', question_id=question.id) }}" class="btn btn-warning btn-sm">Edit</a>
+          <form method="POST" action="{{ url_for('admin.delete_question', question_id=question.id) }}" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <!-- Add Question button -->
+    <a href="{{ url_for('admin.add_question', quiz_id=quiz.id) }}" class="btn btn-primary mt-3">Add Question</a>
+
+    <!-- Edit Quiz button -->
+    <a href="{{ url_for('admin.edit_quiz', quiz_id=quiz.id) }}" class="btn btn-info mt-3">Edit Quiz</a>
+
+    <!-- Delete Quiz button -->
+    <form method="POST" action="{{ url_for('admin.delete_quiz', quiz_id=quiz.id) }}" style="display:inline;">
+      <button type="submit" class="btn btn-danger mt-3">Delete Quiz</button>
+    </form>
+
+    <!-- Back to Chapter button -->
+    <a href="{{ url_for('admin.view_chapter', id=quiz.chapter_id) }}" class="btn btn-secondary mt-3">Back to Chapter</a>
+  </div>
+{% endblock %}

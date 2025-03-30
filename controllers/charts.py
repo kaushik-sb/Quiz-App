@@ -1,8 +1,10 @@
-from flask import render_template
+from flask import Blueprint, render_template
 from models import Score
-from manage import app
 
-@app.route('/charts')
+# Create a Blueprint for charts routes
+charts_bp = Blueprint('charts', __name__)
+
+@charts_bp.route('/charts')
 def charts():
-    scores = Score.query.all()
-    return render_template('charts.html', scores=scores)
+    scores = Score.query.all() or []
+    return render_template("charts.html", scores=scores)

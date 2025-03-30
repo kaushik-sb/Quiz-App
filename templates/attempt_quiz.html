@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Attempt Quiz</h1>
+  
+  <!-- Timer Display: Countdown for Quiz Duration -->
+  <div class="alert alert-info">
+    Time remaining: <span id="countdown"></span>
+  </div>
+
+  <form method="POST" id="quizForm">
+    {% for question in quiz.questions %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Question {{ loop.index }}</h5>
+        <p class="card-text">{{ question.question_statement }}</p>
+        
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="1">
+          <label class="form-check-label">{{ question.option1 }}</label>
+        </div>
+        
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="2">
+          <label class="form-check-label">{{ question.option2 }}</label>
+        </div>
+        
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="3">
+          <label class="form-check-label">{{ question.option3 }}</label>
+        </div>
+        
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="4">
+          <label class="form-check-label">{{ question.option4 }}</label>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    
+    <button type="submit" class="btn btn-primary" id="submitQuizBtn">Submit Quiz</button>
+  </form>
+</div>
+
+<script>
+// Get the quiz duration from the backend (in minutes)
+const quizDurationMinutes = {{ quiz.duration }};
+let timeLeft = quizDurationMinutes * 60; // Convert minutes to seconds
+
+// Function to update the countdown timer on the frontend
+function updateCountdown() {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
+  // Update the countdown timer display
+  document.getElementById("countdown").innerHTML = `${minutes}m ${seconds}s`;
+
+  // If time is up, submit the quiz automatically
+  if (timeLeft <= 0) {
+    document.getElementById("countdown").innerHTML = "Time's up! Submitting your quiz...";
+    document.getElementById("quizForm").submit(); // Auto-submit the form
+    return;
+  }
+
+  // Decrease the time left by 1 second
+  timeLeft--;
+}
+
+// Update countdown every second
+setInterval(updateCountdown, 1000);
+updateCountdown(); // Initial call to start the countdown
+
+</script>
+{% endblock %}

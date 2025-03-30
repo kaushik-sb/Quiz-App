@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Edit Quiz</h1>
+    <form method="POST">
+      {{ form.hidden_tag() }}  <!-- CSRF token -->
+      
+      <div class="form-group">
+        <label for="date_of_quiz">Date of Quiz</label>
+        {{ form.date_of_quiz(class="form-control") }}
+      </div>
+
+      <div class="form-group">
+        <label for="duration">Duration (in minutes)</label>
+        {{ form.duration(class="form-control") }}
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+
+    <!-- Back to Quiz button -->
+    <a href="{{ url_for('admin.view_quiz', quiz_id=quiz.id) }}" class="btn btn-secondary mt-3">Back to Quiz</a>
+  </div>
+{% endblock %}

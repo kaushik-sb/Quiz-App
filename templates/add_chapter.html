@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Add New Chapter for Subject: {{ subject.name }}</h2>
+    
+    <form method="POST" action="{{ url_for('admin.add_chapter', subject_id=subject.id) }}">
+        {{ form.hidden_tag() }}  <!-- To include any hidden fields like CSRF token -->
+
+        <div>
+            <label for="name">Chapter Name</label>
+            {{ form.name(class="form-control") }}
+            {% if form.name.errors %}
+                <ul class="errors">
+                    {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="description">Description</label>
+            {{ form.description(class="form-control") }}
+            {% if form.description.errors %}
+                <ul class="errors">
+                    {% for error in form.description.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <button type="submit">Add Chapter</button>
+    </form>
+
+{% endblock %}

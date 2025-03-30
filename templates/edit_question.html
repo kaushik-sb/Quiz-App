@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Edit Question</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+      <div class="form-group">
+        <label for="question_statement">Question Statement</label>
+        <textarea class="form-control" id="question_statement" name="question_statement" required>{{ form.question_statement.data }}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="option1">Option 1</label>
+        <input type="text" class="form-control" id="option1" name="option1" value="{{ form.option1.data }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="option2">Option 2</label>
+        <input type="text" class="form-control" id="option2" name="option2" value="{{ form.option2.data }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="option3">Option 3</label>
+        <input type="text" class="form-control" id="option3" name="option3" value="{{ form.option3.data }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="option4">Option 4</label>
+        <input type="text" class="form-control" id="option4" name="option4" value="{{ form.option4.data }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="correct_option">Correct Option (1-4)</label>
+        <input type="number" class="form-control" id="correct_option" name="correct_option" value="{{ form.correct_option.data }}" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+
+    <a href="{{ url_for('admin.view_quiz', quiz_id=question.quiz_id) }}" class="btn btn-secondary mt-3">Back to Quiz</a>
+  </div>
+{% endblock %}

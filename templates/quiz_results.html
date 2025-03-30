@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Quiz Scores</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Quiz ID</th>
+      <th>User ID</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for score in scores %}
+      <tr>
+        <td>{{ score.quiz_id }}</td>
+        <td>{{ score.user_id }}</td>
+        <td>{{ score.total_score }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

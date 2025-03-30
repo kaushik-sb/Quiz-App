@@ -1,8 +1,8 @@
-"""Added date and duration fields to Quiz model
+"""Added Admin model
 
-Revision ID: 5a3b09cef6fc
+Revision ID: 99ab50dceed7
 Revises: 
-Create Date: 2025-02-12 21:19:02.533663
+Create Date: 2025-03-29 17:25:33.967178
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5a3b09cef6fc'
+revision = '99ab50dceed7'
 down_revision = None
 branch_labels = None
 depends_on = None

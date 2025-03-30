@@ -1,8 +1,10 @@
-from flask import render_template
-from models import db, Score, Quiz, User
-from manage import app
+from flask import Blueprint, render_template
+from models import db, Score
 
-@app.route('/quiz_results')
+# Create a Blueprint for score routes
+score_bp = Blueprint('score', __name__)
+
+@score_bp.route('/quiz_results')
 def quiz_results():
-    scores = Score.query.all()
-    return render_template('quiz_results.html', scores=scores)
+    scores = Score.query.all() or []
+    return render_template("quiz_results.html", scores=scores)

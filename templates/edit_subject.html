@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Edit Subject</h1>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div>
+      <label for="name">Subject Name:</label>
+      {{ form.name }}
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      {{ form.description }}
+    </div>
+    <button type="submit">Save Changes</button>
+  </form>
+{% endblock %}

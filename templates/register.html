@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3 class="text-center">Register</h3>
+    <form method="POST">
+        <div class="mb-3">
+            <label>Email (Username)</label>
+            <input type="email" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Full Name</label>
+            <input type="text" name="full_name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Qualification</label>
+            <input type="text" name="qualification" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Date of Birth</label>
+            <input type="date" name="dob" class="form-control" required>
+        </div>
+        <button class="btn btn-success w-100">Register</button>
+    </form>
+</div>
+{% endblock %}

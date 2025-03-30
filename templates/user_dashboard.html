@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1 class="my-4">User Dashboard</h1>
+
+  <!-- Performance Analysis Section (Subject-wise Performance) -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h2>Subject-wise Performance</h2>
+        </div>
+        <div class="card-body">
+          <canvas id="subjectPerformanceChart" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Available Quizzes Section -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2>Available Quizzes</h2>
+    </div>
+    <div class="card-body">
+      {% if quizzes_details %}
+        <div class="list-group">
+          {% for quiz_detail in quizzes_details %}
+          <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <h5>Quiz #{{ quiz_detail.quiz.id }}</h5>
+              <small class="text-muted">
+                Chapter: {{ quiz_detail.quiz.chapter.name }} | 
+                Subject: {{ quiz_detail.quiz.chapter.subject.name }}
+              </small>
+            </div>
+            {% if quiz_detail.attempted %}
+              <span class="badge bg-secondary">Attempted</span>
+            {% else %}
+              <a href="{{ url_for('user.attempt_quiz', quiz_id=quiz_detail.quiz.id) }}" 
+                 class="btn btn-primary btn-sm">
+                Take Quiz
+              </a>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No quizzes available at the moment.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Past Attempts Section -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Your Quiz History</h2>
+    </div>
+    <div class="card-body">
+      {% if past_attempts %}
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>Quiz ID</th>
+              <th>Date</th>
+              <th>Score</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for attempt in past_attempts %}
+            <tr>
+              <td>{{ attempt.quiz_id }}</td>
+              <td>{{ attempt.attempt_date.strftime('%Y-%m-%d %H:%M') }}</td>
+              <td>{{ attempt.score }}</td>
+              <td>
+                <a href="{{ url_for('user.view_quiz_result', attempt_id=attempt.id) }}" 
+                   class="btn btn-sm btn-info">
+                  View Details
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>You haven't attempted any quizzes yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Data for the performance chart (Subject-wise performance analysis)
+const subjectLabels = {{ subject_labels|tojson }};
+const subjectAvgScores = {{ subject_avg_scores|tojson }};
+
+// Create the subject performance chart
+const ctx = document.getElementById('subjectPerformanceChart').getContext('2d');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: subjectLabels,
+        datasets: [{
+            label: 'Average Score (%)',
+            data: subjectAvgScores,
+            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100,
+                title: {
+                    display: true,
+                    text: 'Average Score (%)'
+                }
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}

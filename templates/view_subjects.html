@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Subjects List</h2>
+<ul>
+    {% for subject in subjects %}
+        <li>{{ subject.name }} 
+            <a href="{{ url_for('admin.view_subject', subject_id=subject.id) }}">View</a> |
+            <a href="{{ url_for('admin.edit_subject', subject_id=subject.id) }}">Edit</a> |
+            <a href="{{ url_for('admin.delete_subject', subject_id=subject.id) }}">Delete</a>
+        </li>
+    {% else %}
+        <li>No subjects available</li>
+    {% endfor %}
+</ul>
+
+<a href="{{ url_for('admin.add_subject') }}">Add New Subject</a>
+{% endblock %}

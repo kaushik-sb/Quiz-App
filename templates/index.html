@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Quiz Master</title>
-</head>
-<body>
-    <h2>Welcome to Quiz Master</h2>
-    <a href="/login">Login</a> | <a href="/admin">Admin Panel</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row align-items-center mt-5">
+  <div class="col-md-6">
+    <h1 class="display-4 fw-bold text-primary">Welcome to Quiz Master</h1>
+    <p class="lead mt-3">
+      Quiz Master is a powerful multi-user exam preparation platform built for students and administrators. 
+      Users can take timed quizzes by chapter and subject, while admins manage subjects, quizzes, and monitor results — all in one place.
+    </p>
+    <ul class="list-group list-group-flush my-3">
+      <li class="list-group-item">📚 Multiple subjects & chapters</li>
+      <li class="list-group-item">📝 Timed MCQ-based quizzes</li>
+      <li class="list-group-item">📊 Performance charts & past scores</li>
+      <li class="list-group-item">🔐 Secure login for users and admin</li>
+    </ul>
+
+    <div class="d-grid gap-2 d-md-block mt-4">
+      <a href="/login" class="btn btn-success btn-lg me-2">Login</a>  
+      <a href="{{ url_for('auth.admin_login') }}" class="btn btn-warning btn-lg">Admin Panel</a>
+    </div>
+  </div>
+
+  <div class="col-md-6 text-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/1146/1146840.png" alt="Quiz Icon" class="img-fluid" style="max-height: 350px;">
+  </div>
+</div>
+
+{% endblock %}

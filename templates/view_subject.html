@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ subject.name }}</h2>
+    <h3>Chapters:</h3>
+    <ul>
+        {% for chapter in chapters %}
+            <li>{{ chapter.name }} 
+                <a href="{{ url_for('admin.view_chapter', id=chapter.id) }}">View Chapter</a> | 
+                <a href="{{ url_for('admin.add_quiz', chapter_id=chapter.id) }}">Add Quiz</a></li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="{{ url_for('admin.add_chapter', subject_id=subject.id) }}" class="btn btn-primary">Add New Chapter</a>
+    <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-primary">Go back to dashboard</a>
+{% endblock %}
